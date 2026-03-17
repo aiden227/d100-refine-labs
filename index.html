@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refine Labs | Your MQLs Are Up. Your Pipeline Is Flat. We Fix That.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'rl-bg': '#17171a',
+                        'rl-bg-alt': '#123a30',
+                        'rl-teal': '#3db493',
+                        'rl-bright': '#0ad28f',
+                        'rl-hover': '#154C3C8C',
+                        'rl-gray': '#a0a0a0',
+                        'rl-card': '#1e1e22',
+                        'rl-border': '#2a2a2e',
+                    },
+                    fontFamily: {
+                        'inter-tight': ['"Inter Tight"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter Tight', sans-serif; background: #17171a; color: #ffffff; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Inter Tight', sans-serif; }
+
+        /* Form steps */
+        .form-step { display: none; }
+        .form-step.active { display: block; }
+
+        /* Option buttons */
+        .option-btn {
+            transition: all 0.2s ease;
+            cursor: pointer;
+            background: transparent;
+            border: 1px solid #2a2a2e;
+            color: #ffffff;
+        }
+        .option-btn:hover {
+            border-color: #3db493;
+            background: rgba(61, 180, 147, 0.08);
+        }
+
+        /* Progress bar */
+        .progress-fill {
+            transition: width 0.4s ease;
+        }
+
+        /* Fade animation */
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-slide-in { animation: fadeSlideIn 0.35s ease forwards; }
+
+        /* FAQ */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+        }
+        .faq-answer.open {
+            max-height: 600px;
+        }
+        .faq-chevron {
+            transition: transform 0.35s ease;
+        }
+        .faq-chevron.open {
+            transform: rotate(180deg);
+        }
+
+        /* Logo carousel */
+        @keyframes scrollLogos {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .logo-track {
+            animation: scrollLogos 30s linear infinite;
+        }
+        .logo-track:hover {
+            animation-play-state: paused;
+        }
+
+        /* Gradient orb */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        /* Nav shadow */
+        .nav-scrolled {
+            background: rgba(23, 23, 26, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(42, 42, 46, 0.5);
+        }
+
+        /* CTA button style */
+        .cta-btn {
+            border: 2px solid #3db493;
+            background: transparent;
+            color: #ffffff;
+            font-family: 'Inter Tight', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.6px;
+            padding: 14px 32px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .cta-btn:hover {
+            opacity: 0.7;
+            background: #000;
+        }
+
+        /* Filled CTA */
+        .cta-btn-filled {
+            border: 2px solid #3db493;
+            background: #3db493;
+            color: #17171a;
+            font-family: 'Inter Tight', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.6px;
+            padding: 14px 32px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .cta-btn-filled:hover {
+            background: #0ad28f;
+            border-color: #0ad28f;
+        }
+
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
+
+        /* Form input styling */
+        .form-input {
+            background: #1e1e22;
+            border: 1px solid #2a2a2e;
+            color: #ffffff;
+            font-family: 'Inter Tight', sans-serif;
+            padding: 14px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            transition: border-color 0.2s ease;
+            outline: none;
+        }
+        .form-input::placeholder { color: #666; }
+        .form-input:focus { border-color: #3db493; }
+
+        /* Section divider */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #2a2a2e, transparent);
+        }
+
+        /* Stat highlight */
+        .stat-highlight {
+            color: #3db493;
+            font-weight: 700;
+        }
+
+        /* Scroll margin for anchor nav */
+        section[id] {
+            scroll-margin-top: 80px;
+        }
+    </style>
+</head>
+<body class="bg-rl-bg text-white font-inter-tight">
+
+    <!-- Navigation -->
+    <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="max-w-[1180px] mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="#">
+                <img src="images/homepage-67b8b29ba87fc45139026920_logo.svg" alt="Refine Labs" class="h-6 md:h-7">
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#process" class="text-rl-gray hover:text-white text-sm font-medium transition-colors">How It Works</a>
+                <a href="#case-studies" class="text-rl-gray hover:text-white text-sm font-medium transition-colors">Results</a>
+                <a href="#faq" class="text-rl-gray hover:text-white text-sm font-medium transition-colors">FAQ</a>
+                <a href="#hero-form" class="cta-btn text-xs py-3 px-6">BOOK A STRATEGY CALL</a>
+            </div>
+            <a href="#hero-form" class="md:hidden cta-btn text-xs py-2.5 px-5">BOOK A CALL</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-24 pb-8 md:pt-32 md:pb-12 overflow-hidden">
+        <!-- Gradient orbs -->
+        <div class="orb w-[600px] h-[600px] bg-rl-teal top-[-200px] left-[-200px]"></div>
+        <div class="orb w-[400px] h-[400px] bg-rl-bright top-[100px] right-[-150px]"></div>
+
+        <div class="relative z-10 max-w-[1180px] mx-auto px-6">
+            <!-- Call-out -->
+            <div class="text-center mb-6">
+                <span class="inline-block text-rl-teal text-sm font-semibold tracking-wider uppercase">For B2B SaaS Companies Doing $50M+ in ARR</span>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="text-center text-4xl md:text-5xl lg:text-[56px] font-bold leading-[1.1] mb-6 max-w-4xl mx-auto">
+                Your MQLs Are Up. Your Pipeline Is Flat. <span class="text-rl-teal">We Fix That.</span>
+            </h1>
+
+            <!-- Sub-headline -->
+            <p class="text-center text-rl-gray text-base md:text-lg max-w-3xl mx-auto mb-10 leading-relaxed">
+                300+ B2B SaaS companies. 745% pipeline velocity boost for Vena. 64% win rate increase for Clari. 80% more qualified pipeline for Splash. Same system. Your turn.
+            </p>
+
+            <!-- VSL Video Placeholder -->
+            <div class="max-w-3xl mx-auto mb-10">
+                <div class="relative bg-rl-card rounded-lg aspect-video flex items-center justify-center border border-rl-border overflow-hidden">
+                    <img src="images/homepage-67b8b29ba87fc45139026926_graph.png" alt="Performance Results" class="absolute inset-0 w-full h-full object-cover opacity-20">
+                    <div class="relative text-center z-10">
+                        <div class="w-20 h-20 rounded-full border-2 border-rl-teal flex items-center justify-center mx-auto mb-3 cursor-pointer hover:bg-rl-teal/10 transition-colors">
+                            <svg class="w-8 h-8 text-rl-teal ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                        <p class="text-rl-gray text-sm">Watch the strategy breakdown</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Qualification Form -->
+            <div id="hero-form" class="max-w-lg mx-auto bg-rl-card border border-rl-border rounded-lg p-8">
+                <div class="text-center mb-6">
+                    <h3 class="text-xl font-semibold mb-1">See If You Qualify</h3>
+                    <p class="text-rl-gray text-sm">Answer a few quick questions. Takes 30 seconds.</p>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="mb-6">
+                    <div class="flex justify-between text-xs text-rl-gray mb-2">
+                        <span id="hero-step-label">Step 1 of 5</span>
+                    </div>
+                    <div class="w-full bg-rl-border rounded-full h-1">
+                        <div id="hero-progress" class="progress-fill bg-rl-teal rounded-full h-1" style="width: 20%"></div>
+                    </div>
+                </div>
+
+                <!-- Step 1: ARR -->
+                <div class="form-step active" id="hero-step-1">
+                    <p class="font-medium text-white mb-4 text-sm">What is your company's annual recurring revenue (ARR)?</p>
+                    <div class="space-y-2.5">
+                        <button onclick="heroNext(2)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">Under $10M</button>
+                        <button onclick="heroNext(2)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">$10M - $30M</button>
+                        <button onclick="heroNext(2)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">$30M - $50M</button>
+                        <button onclick="heroNext(2)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">$50M - $100M</button>
+                        <button onclick="heroNext(2)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">$100M+</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Paid Media Spend -->
+                <div class="form-step" id="hero-step-2">
+                    <p class="font-medium text-white mb-4 text-sm">What is your current monthly paid media spend?</p>
+                    <div class="space-y-2.5">
+                        <button onclick="heroNext(3)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">Under $25K/month</button>
+                        <button onclick="heroNext(3)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">$25K - $50K/month</button>
+                        <button onclick="heroNext(3)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">$50K - $100K/month</button>
+                        <button onclick="heroNext(3)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">$100K - $250K/month</button>
+                        <button onclick="heroNext(3)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">$250K+/month</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Challenge -->
+                <div class="form-step" id="hero-step-3">
+                    <p class="font-medium text-white mb-4 text-sm">What's your biggest marketing challenge right now?</p>
+                    <div class="space-y-2.5">
+                        <button onclick="heroNext(4)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">Generating quality pipeline (not just MQLs)</button>
+                        <button onclick="heroNext(4)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">Proving marketing's impact on revenue</button>
+                        <button onclick="heroNext(4)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">Reducing customer acquisition cost</button>
+                        <button onclick="heroNext(4)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">Transitioning from lead gen to demand gen</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Agency Experience -->
+                <div class="form-step" id="hero-step-4">
+                    <p class="font-medium text-white mb-4 text-sm">Have you worked with a demand generation agency in the past 12 months?</p>
+                    <div class="space-y-2.5">
+                        <button onclick="heroNext(5)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">Yes, currently working with one</button>
+                        <button onclick="heroNext(5)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">Yes, but the engagement ended</button>
+                        <button onclick="heroNext(5)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">No, this would be our first agency partner</button>
+                    </div>
+                </div>
+
+                <!-- Step 5: Contact Info -->
+                <div class="form-step" id="hero-step-5">
+                    <p class="font-medium text-white mb-4 text-sm">Last step. Where should we send your call details?</p>
+                    <form onsubmit="window.location.href='/thankyou'; return false;" class="space-y-3">
+                        <div class="grid grid-cols-2 gap-3">
+                            <input type="text" placeholder="First Name" required class="form-input">
+                            <input type="text" placeholder="Last Name" required class="form-input">
+                        </div>
+                        <input type="email" placeholder="Email" required class="form-input">
+                        <input type="tel" placeholder="Phone Number" required class="form-input">
+                        <button type="submit" class="cta-btn-filled w-full py-4 text-sm mt-2">
+                            BOOK YOUR STRATEGY CALL
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Bar / Logo Carousel -->
+    <section class="py-12 border-y border-rl-border overflow-hidden">
+        <div class="max-w-[1180px] mx-auto px-6 mb-8">
+            <p class="text-center text-rl-gray text-sm font-medium tracking-wider uppercase">Trusted by 300+ B2B SaaS Companies</p>
+        </div>
+        <div class="relative overflow-hidden">
+            <div class="logo-track flex items-center gap-16 whitespace-nowrap" style="width: max-content;">
+                <!-- First set -->
+                <img src="images/homepage-67bce92f7991712fc2ef390d_Logo-Dandy.png" alt="Dandy" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92fb9bd3577aefcd6eb_Logo-Zappi.png" alt="Zappi" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92f11dd133eaea62efa_Logo-Hunters.png" alt="Hunters" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92f83981df3e698209d_Logo-EveryoneSocial.png" alt="EveryoneSocial" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92f540e0577c0a2e7b8_Logo-Hopin.png" alt="Hopin" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92f323a459406cac1d5_Logo-Algolia.png" alt="Algolia" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce93078453c869a0cb9dc_Logo-Vena.png" alt="Vena" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce930323a459406cac314_Logo-Balto.png" alt="Balto" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92f6c9b42f4812f6073_Logo-Showpad.png" alt="Showpad" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92fb9bd3577aefcd6c2_Logo-Beyondtrust.png" alt="BeyondTrust" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92fbf06c18990d95c2a_Logo-Seon.png" alt="Seon" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92fa478f959b55e9461_Logo-Skuid.png" alt="Skuid" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92f266163a85dbe3608_Logo-Safeguard%20Global.png" alt="Safeguard Global" class="h-6 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92f2ed72017f3fc1a55_Logo-Cognism.png" alt="Cognism" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <!-- Duplicate set for seamless loop -->
+                <img src="images/homepage-67bce92f7991712fc2ef390d_Logo-Dandy.png" alt="Dandy" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92fb9bd3577aefcd6eb_Logo-Zappi.png" alt="Zappi" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92f11dd133eaea62efa_Logo-Hunters.png" alt="Hunters" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92f83981df3e698209d_Logo-EveryoneSocial.png" alt="EveryoneSocial" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92f540e0577c0a2e7b8_Logo-Hopin.png" alt="Hopin" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92f323a459406cac1d5_Logo-Algolia.png" alt="Algolia" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce93078453c869a0cb9dc_Logo-Vena.png" alt="Vena" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce930323a459406cac314_Logo-Balto.png" alt="Balto" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92f6c9b42f4812f6073_Logo-Showpad.png" alt="Showpad" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92fb9bd3577aefcd6c2_Logo-Beyondtrust.png" alt="BeyondTrust" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92fbf06c18990d95c2a_Logo-Seon.png" alt="Seon" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92fa478f959b55e9461_Logo-Skuid.png" alt="Skuid" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92f266163a85dbe3608_Logo-Safeguard%20Global.png" alt="Safeguard Global" class="h-6 opacity-50 hover:opacity-100 transition-opacity">
+                <img src="images/homepage-67bce92f2ed72017f3fc1a55_Logo-Cognism.png" alt="Cognism" class="h-7 opacity-50 hover:opacity-100 transition-opacity">
+            </div>
+        </div>
+        <!-- Credential stats -->
+        <div class="max-w-[1180px] mx-auto px-6 mt-10">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-center">
+                <div>
+                    <p class="text-2xl font-bold text-rl-teal">300+</p>
+                    <p class="text-rl-gray text-xs mt-1">B2B SaaS Clients</p>
+                </div>
+                <div>
+                    <p class="text-2xl font-bold text-rl-teal">60,000+</p>
+                    <p class="text-rl-gray text-xs mt-1">Creative Assets Tested</p>
+                </div>
+                <div>
+                    <p class="text-2xl font-bold text-rl-teal">2,000+</p>
+                    <p class="text-rl-gray text-xs mt-1">Strategies Deployed</p>
+                </div>
+                <div>
+                    <p class="text-2xl font-bold text-rl-teal">20+</p>
+                    <p class="text-rl-gray text-xs mt-1">Industries</p>
+                </div>
+                <div>
+                    <p class="text-2xl font-bold text-rl-teal">50%</p>
+                    <p class="text-rl-gray text-xs mt-1">Avg. Pipeline Growth</p>
+                </div>
+                <div>
+                    <p class="text-2xl font-bold text-rl-teal">SaaStr</p>
+                    <p class="text-rl-gray text-xs mt-1">INBOUND, Forrester</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="py-20 md:py-28">
+        <div class="max-w-[780px] mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-semibold leading-[1.2] mb-8 text-center">You're Winning the Wrong Game</h2>
+            <div class="text-rl-gray text-base leading-[1.7] space-y-5">
+                <p>You hit your MQL target last quarter. Maybe you crushed it.</p>
+                <p>And then you walked into the pipeline review... and the number hadn't moved.</p>
+                <p>Here's what's actually happening: your team is generating thousands of leads that sales won't touch. Your SDRs are burning through whitepaper downloads and webinar attendees who never had any intention of buying. Marketing looks busy. Pipeline stays flat.</p>
+                <p>Meanwhile, the CFO is asking why you're spending $50K a month on LinkedIn ads and can't prove it drives revenue. The board sees marketing as a cost center. And sales straight up doesn't trust the leads you're sending them.</p>
+                <p>You've probably already tried fixing it. You hired an agency. They ran some ads, sent you click reports, and promised "brand awareness." Six months and a couple hundred thousand dollars later... same pipeline chart. Just with a nicer slide deck.</p>
+                <p>The problem isn't your budget. It's not your team's effort. <span class="text-white font-medium">It's the model.</span></p>
+                <p>Lead gen is broken. The buyers you're trying to reach are making decisions in Slack channels, podcasts, and peer conversations. None of that shows up in your CRM. And the harder you optimize for MQLs, the further you get from actual revenue.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Solution Section -->
+    <section class="py-20 md:py-28 relative overflow-hidden">
+        <div class="orb w-[500px] h-[500px] bg-rl-teal bottom-[-200px] right-[-200px]"></div>
+        <div class="max-w-[780px] mx-auto px-6 relative z-10">
+            <h2 class="text-3xl md:text-4xl font-semibold leading-[1.2] mb-8 text-center">Stop Capturing Demand. Start Creating It.</h2>
+            <div class="text-rl-gray text-base leading-[1.7] space-y-5">
+                <p>Here's the thing: only 5% of your market is actively buying right now. The entire lead gen playbook is designed to fight over that 5%.</p>
+                <p>The other 95%? They're not in your funnel. They're not clicking your ads. They're not downloading your whitepapers. But they ARE forming opinions about which vendors they'll call when they're ready.</p>
+                <p>That's the game. And most B2B SaaS companies aren't even playing it.</p>
+                <p>Refine Labs builds the system that makes you the first call. Not by generating more junk leads. By creating demand with the 95% who aren't buying yet and capturing demand from the 5% who are.</p>
+                <p>The result? Your ICP already knows you, trusts you, and has you on their Day-One shortlist before they ever fill out a form. When they do raise their hand, they convert faster, close at higher rates, and stick around longer.</p>
+                <p>This is how Clari hit a <span class="stat-highlight">64% increase in win rate</span>. How Splash grew qualified pipeline by <span class="stat-highlight">80%</span>. How Vena saw a <span class="stat-highlight">745% boost in pipeline velocity</span>.</p>
+                <p class="text-white font-medium">Not more leads. Better demand.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Authority / Founder Section -->
+    <section class="py-20 md:py-28 bg-rl-bg-alt">
+        <div class="max-w-[1180px] mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <div class="flex justify-center">
+                    <div class="relative">
+                        <img src="images/megan-bio-68629b0b6e53dfa8adf9cc3d_Megan_1.png" alt="Megan Bowen, CEO of Refine Labs" class="w-72 md:w-80 rounded-lg relative z-10">
+                        <div class="absolute inset-0 rounded-lg border-2 border-rl-teal translate-x-3 translate-y-3 z-0"></div>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-rl-teal text-sm font-semibold tracking-wider uppercase mb-3">Meet the CEO</p>
+                    <h2 class="text-3xl md:text-4xl font-semibold leading-[1.2] mb-5">Megan Bowen</h2>
+                    <p class="text-rl-gray text-base leading-[1.7] mb-4">CEO and Majority Owner of Refine Labs. 20+ years building and scaling go-to-market teams in B2B. From ZocDoc's customer success function, to Grubhub/Seamless through IPO, to leading Managed by Q through WeWork's acquisition.</p>
+                    <p class="text-rl-gray text-base leading-[1.7] mb-4">Joined Refine Labs in 2020 when it had 5 employees and 6 customers. Built it into the category-defining demand generation agency serving 300+ B2B SaaS companies. Became majority owner in July 2025.</p>
+                    <p class="text-rl-gray text-base leading-[1.7] mb-6">Named to Time Iconic's "Top Business Leaders to Watch in 2025." Featured on national TV for her take: "AI won't save bad marketing. It'll expose it."</p>
+                    <div class="border-l-2 border-rl-teal pl-5 py-2">
+                        <p class="text-white text-base italic leading-[1.6]">"AI won't save bad marketing. It'll expose it."</p>
+                        <p class="text-rl-gray text-sm mt-2">Megan Bowen, CEO, Refine Labs</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section: Brand-Demand-Expand -->
+    <section id="process" class="py-20 md:py-28">
+        <div class="max-w-[1180px] mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-semibold leading-[1.2] mb-4">How the Brand-Demand-Expand System Works</h2>
+                <p class="text-rl-gray text-base max-w-2xl mx-auto">Four phases. One system. Compounding pipeline growth.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Phase 1 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-7 relative">
+                    <div class="w-10 h-10 rounded-full border-2 border-rl-teal flex items-center justify-center mb-5">
+                        <span class="text-rl-teal font-bold text-sm">01</span>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Assess</h3>
+                    <p class="text-rl-gray text-xs font-medium mb-3 tracking-wider uppercase">Weeks 1-8</p>
+                    <p class="text-rl-gray text-sm leading-[1.6]">Full diagnostic. What's working. What's burning money. Where your pipeline is actually coming from. We audit your ICP, messaging, channels, attribution, and budget allocation. Most clients discover 60-70% of their spend goes to channels that can't be tied to a single closed deal.</p>
+                </div>
+                <!-- Phase 2 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-7 relative">
+                    <div class="w-10 h-10 rounded-full border-2 border-rl-teal flex items-center justify-center mb-5">
+                        <span class="text-rl-teal font-bold text-sm">02</span>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Brand</h3>
+                    <p class="text-rl-gray text-xs font-medium mb-3 tracking-wider uppercase">Ongoing</p>
+                    <p class="text-rl-gray text-sm leading-[1.6]">We make your company top-of-mind across your target market. Branded search volume goes up. Direct traffic goes up. The "how did you hear about us" responses start naming you specifically. This is measurable. We track it.</p>
+                </div>
+                <!-- Phase 3 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-7 relative">
+                    <div class="w-10 h-10 rounded-full border-2 border-rl-teal flex items-center justify-center mb-5">
+                        <span class="text-rl-teal font-bold text-sm">03</span>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Demand</h3>
+                    <p class="text-rl-gray text-xs font-medium mb-3 tracking-wider uppercase">Ongoing</p>
+                    <p class="text-rl-gray text-sm leading-[1.6]">Targeted campaigns across LinkedIn, Google, YouTube, CTV, and Reddit to reach your target account list. Create demand with the 95% not actively buying and capture demand from the 5% who are. Every campaign ties back to pipeline. Not impressions. Pipeline.</p>
+                </div>
+                <!-- Phase 4 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-7 relative">
+                    <div class="w-10 h-10 rounded-full border-2 border-rl-teal flex items-center justify-center mb-5">
+                        <span class="text-rl-teal font-bold text-sm">04</span>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Expand</h3>
+                    <p class="text-rl-gray text-xs font-medium mb-3 tracking-wider uppercase">Ongoing</p>
+                    <p class="text-rl-gray text-sm leading-[1.6]">Digital programs that drive upsell, cross-sell, and expansion revenue from your existing customers. Your NRR goes up. Your CAC payback period shrinks. The math gets better every quarter.</p>
+                </div>
+            </div>
+
+            <!-- Proof block -->
+            <div class="mt-12 bg-rl-card border border-rl-border rounded-lg p-8 flex flex-col md:flex-row items-start gap-6">
+                <img src="images/homepage-67b8b29ba87fc45139026922_puzzle.png" alt="System visualization" class="w-24 md:w-32 flex-shrink-0">
+                <div>
+                    <p class="text-rl-gray text-sm leading-[1.7]">Zappi went from scattered marketing efforts to a <span class="stat-highlight">7x increase in qualified pipeline generation vs. spend</span> and a <span class="stat-highlight">3x increase in deal size</span>. Same team. Same product. Different system. Vena's pipeline velocity jumped <span class="stat-highlight">745%</span> over a 3-year partnership. dotCMS doubled their inbound demo requests without any drop in quality. The system compounds.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Case Studies Section -->
+    <section id="case-studies" class="py-20 md:py-28">
+        <div class="max-w-[1180px] mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-semibold leading-[1.2] mb-4">This Is What Pipeline Growth Actually Looks Like</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Vena -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="images/homepage-67bce93078453c869a0cb9dc_Logo-Vena.png" alt="Vena" class="h-6">
+                        <span class="text-rl-gray text-xs">FP&A / Corporate Performance Management SaaS</span>
+                    </div>
+                    <p class="text-rl-gray text-sm mb-5">Needed to accelerate pipeline velocity and create demand at scale.</p>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="bg-rl-bg rounded p-4">
+                            <p class="text-2xl font-bold text-rl-teal">745%</p>
+                            <p class="text-rl-gray text-xs mt-1">Pipeline Velocity Boost</p>
+                        </div>
+                        <div class="bg-rl-bg rounded p-4">
+                            <p class="text-2xl font-bold text-rl-teal">3 yrs</p>
+                            <p class="text-rl-gray text-xs mt-1">Partnership & Counting</p>
+                        </div>
+                    </div>
+                    <p class="text-rl-gray text-xs italic">CMO Allison Munro credits Brand-Demand-Expand as the engine behind their growth.</p>
+                </div>
+
+                <!-- Clari -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-white font-semibold text-lg">Clari</span>
+                        <span class="text-rl-gray text-xs">Revenue Operations SaaS</span>
+                    </div>
+                    <p class="text-rl-gray text-sm mb-5">High-volume lead gen producing inconsistent pipeline quality.</p>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="bg-rl-bg rounded p-4">
+                            <p class="text-2xl font-bold text-rl-teal">64%</p>
+                            <p class="text-rl-gray text-xs mt-1">Win Rate Increase</p>
+                        </div>
+                        <div class="bg-rl-bg rounded p-4">
+                            <p class="text-2xl font-bold text-rl-teal">67%</p>
+                            <p class="text-rl-gray text-xs mt-1">CAC Reduction</p>
+                        </div>
+                    </div>
+                    <p class="text-rl-gray text-xs italic">Sales started trusting marketing-sourced pipeline for the first time.</p>
+                </div>
+
+                <!-- Splash -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-white font-semibold text-lg">Splash</span>
+                        <span class="text-rl-gray text-xs">Event Marketing SaaS</span>
+                    </div>
+                    <p class="text-rl-gray text-sm mb-5">Qualified pipeline wasn't keeping up with growth targets.</p>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="bg-rl-bg rounded p-4">
+                            <p class="text-2xl font-bold text-rl-teal">80%</p>
+                            <p class="text-rl-gray text-xs mt-1">Qualified Pipeline Growth</p>
+                        </div>
+                        <div class="bg-rl-bg rounded p-4">
+                            <p class="text-2xl font-bold text-rl-teal">32%</p>
+                            <p class="text-rl-gray text-xs mt-1">Cost Per Opp Decrease</p>
+                        </div>
+                    </div>
+                    <p class="text-rl-gray text-xs italic">CMO Kate Hammitt: "The best opportunity generation Splash has experienced."</p>
+                </div>
+
+                <!-- Zappi -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="images/homepage-67bce92fb9bd3577aefcd6eb_Logo-Zappi.png" alt="Zappi" class="h-6">
+                        <span class="text-rl-gray text-xs">Consumer Insights SaaS</span>
+                    </div>
+                    <p class="text-rl-gray text-sm mb-5">Marketing spend wasn't translating to pipeline.</p>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="bg-rl-bg rounded p-4">
+                            <p class="text-2xl font-bold text-rl-teal">7x</p>
+                            <p class="text-rl-gray text-xs mt-1">Pipeline vs. Spend</p>
+                        </div>
+                        <div class="bg-rl-bg rounded p-4">
+                            <p class="text-2xl font-bold text-rl-teal">3x</p>
+                            <p class="text-rl-gray text-xs mt-1">Deal Size Increase</p>
+                        </div>
+                    </div>
+                    <p class="text-rl-gray text-xs italic">Complete turnaround in marketing-to-revenue attribution.</p>
+                </div>
+            </div>
+
+            <p class="text-center text-rl-gray text-xs mt-8 italic">Results vary based on individual effort, market conditions, and client participation.</p>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 md:py-28 bg-rl-bg-alt">
+        <div class="max-w-[1180px] mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-semibold leading-[1.2] mb-4">What Marketing Leaders Are Saying</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Testimonial 1 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-7">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-10 h-10 rounded-full bg-rl-teal/20 flex items-center justify-center text-rl-teal font-bold text-sm">AM</div>
+                        <div>
+                            <p class="text-sm font-medium">Allison Munro</p>
+                            <p class="text-rl-gray text-xs">CMO, Vena</p>
+                        </div>
+                    </div>
+                    <p class="text-rl-gray text-sm leading-[1.7]">"745% pipeline velocity boost over our 3-year partnership. The Brand-Demand-Expand system is the engine behind our growth. This isn't just an agency. It's a competitive advantage."</p>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-7">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-10 h-10 rounded-full bg-rl-teal/20 flex items-center justify-center text-rl-teal font-bold text-sm">KH</div>
+                        <div>
+                            <p class="text-sm font-medium">Kate Hammitt</p>
+                            <p class="text-rl-gray text-xs">CMO, Splash</p>
+                        </div>
+                    </div>
+                    <p class="text-rl-gray text-sm leading-[1.7]">"The best opportunity generation Splash has experienced. 80% increase in qualified pipeline, 32% decrease in cost per qualified opportunity. They transformed how we think about demand."</p>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-7">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-10 h-10 rounded-full bg-rl-teal/20 flex items-center justify-center text-rl-teal font-bold text-sm">VB</div>
+                        <div>
+                            <p class="text-sm font-medium">Victoria Burt</p>
+                            <p class="text-rl-gray text-xs">VP Marketing, dotCMS</p>
+                        </div>
+                    </div>
+                    <p class="text-rl-gray text-sm leading-[1.7]">"Doubled our inbound demo requests without any drop in quality. I've never seen such high-quality leads. They fundamentally changed our approach to demand generation."</p>
+                </div>
+
+                <!-- Testimonial 4 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-7">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-10 h-10 rounded-full bg-rl-teal/20 flex items-center justify-center text-rl-teal font-bold text-sm">BT</div>
+                        <div>
+                            <p class="text-sm font-medium">Bonterra Team</p>
+                            <p class="text-rl-gray text-xs">Social Impact SaaS</p>
+                        </div>
+                    </div>
+                    <p class="text-rl-gray text-sm leading-[1.7]">"30% increase in high-intent leads quarter over quarter. Refine Labs reversed the decline and rebuilt demand. They didn't just run campaigns. They rebuilt our pipeline engine."</p>
+                </div>
+
+                <!-- Testimonial 5 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-7">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-10 h-10 rounded-full bg-rl-teal/20 flex items-center justify-center text-rl-teal font-bold text-sm">LX</div>
+                        <div>
+                            <p class="text-sm font-medium">Loxo Team</p>
+                            <p class="text-rl-gray text-xs">Recruiting SaaS</p>
+                        </div>
+                    </div>
+                    <p class="text-rl-gray text-sm leading-[1.7]">"45% ARR growth. The system works exactly the way they describe it. Pipeline started compounding once Brand-Demand-Expand got traction."</p>
+                </div>
+
+                <!-- Testimonial 6 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-7">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-10 h-10 rounded-full bg-rl-teal/20 flex items-center justify-center text-rl-teal font-bold text-sm">FU</div>
+                        <div>
+                            <p class="text-sm font-medium">FirstUp Team</p>
+                            <p class="text-rl-gray text-xs">Employee Communications SaaS</p>
+                        </div>
+                    </div>
+                    <p class="text-rl-gray text-sm leading-[1.7]">"46% increase in hand raisers and 59% HIRO pipeline growth. The measurement framework alone was worth the investment. We can finally show the board exactly what marketing drives."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section id="final-cta" class="py-20 md:py-28 relative overflow-hidden">
+        <div class="orb w-[600px] h-[600px] bg-rl-teal top-[-300px] right-[-200px]"></div>
+        <div class="max-w-[780px] mx-auto px-6 relative z-10">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-semibold leading-[1.2] mb-6">Your Pipeline Problem Has a Fix. This Is It.</h2>
+                <p class="text-rl-gray text-base leading-[1.7] max-w-2xl mx-auto">You've seen the numbers. 745% pipeline velocity boost. 64% higher win rates. 80% more qualified pipeline. 7x pipeline vs. spend. These aren't projections. These are results from real B2B SaaS companies using the exact system we'll build for you.</p>
+                <p class="text-rl-gray text-base leading-[1.7] max-w-2xl mx-auto mt-4">So if you're a marketing leader at a $50M+ ARR SaaS company, and you're tired of reporting on MQLs that don't move the pipeline chart... click below, answer a few questions, and book a strategy call.</p>
+                <p class="text-rl-gray text-base leading-[1.7] max-w-2xl mx-auto mt-4">We'll show you exactly where your current system is leaking pipeline and how to fix it.</p>
+            </div>
+
+            <!-- Bottom Qualification Form -->
+            <div id="bottom-form" class="max-w-lg mx-auto bg-rl-card border border-rl-border rounded-lg p-8">
+                <div class="text-center mb-6">
+                    <h3 class="text-xl font-semibold mb-1">See If You Qualify</h3>
+                    <p class="text-rl-gray text-sm">Answer a few quick questions. Takes 30 seconds.</p>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="mb-6">
+                    <div class="flex justify-between text-xs text-rl-gray mb-2">
+                        <span id="bottom-step-label">Step 1 of 5</span>
+                    </div>
+                    <div class="w-full bg-rl-border rounded-full h-1">
+                        <div id="bottom-progress" class="progress-fill bg-rl-teal rounded-full h-1" style="width: 20%"></div>
+                    </div>
+                </div>
+
+                <!-- Step 1 -->
+                <div class="form-step active" id="bottom-step-1">
+                    <p class="font-medium text-white mb-4 text-sm">What is your company's annual recurring revenue (ARR)?</p>
+                    <div class="space-y-2.5">
+                        <button onclick="bottomNext(2)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">Under $10M</button>
+                        <button onclick="bottomNext(2)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">$10M - $30M</button>
+                        <button onclick="bottomNext(2)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">$30M - $50M</button>
+                        <button onclick="bottomNext(2)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">$50M - $100M</button>
+                        <button onclick="bottomNext(2)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">$100M+</button>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="form-step" id="bottom-step-2">
+                    <p class="font-medium text-white mb-4 text-sm">What is your current monthly paid media spend?</p>
+                    <div class="space-y-2.5">
+                        <button onclick="bottomNext(3)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">Under $25K/month</button>
+                        <button onclick="bottomNext(3)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">$25K - $50K/month</button>
+                        <button onclick="bottomNext(3)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">$50K - $100K/month</button>
+                        <button onclick="bottomNext(3)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">$100K - $250K/month</button>
+                        <button onclick="bottomNext(3)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">$250K+/month</button>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="form-step" id="bottom-step-3">
+                    <p class="font-medium text-white mb-4 text-sm">What's your biggest marketing challenge right now?</p>
+                    <div class="space-y-2.5">
+                        <button onclick="bottomNext(4)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">Generating quality pipeline (not just MQLs)</button>
+                        <button onclick="bottomNext(4)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">Proving marketing's impact on revenue</button>
+                        <button onclick="bottomNext(4)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">Reducing customer acquisition cost</button>
+                        <button onclick="bottomNext(4)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">Transitioning from lead gen to demand gen</button>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="form-step" id="bottom-step-4">
+                    <p class="font-medium text-white mb-4 text-sm">Have you worked with a demand generation agency in the past 12 months?</p>
+                    <div class="space-y-2.5">
+                        <button onclick="bottomNext(5)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">Yes, currently working with one</button>
+                        <button onclick="bottomNext(5)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">Yes, but the engagement ended</button>
+                        <button onclick="bottomNext(5)" class="option-btn w-full text-left px-5 py-3.5 rounded text-sm">No, this would be our first agency partner</button>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="form-step" id="bottom-step-5">
+                    <p class="font-medium text-white mb-4 text-sm">Last step. Where should we send your call details?</p>
+                    <form onsubmit="window.location.href='/thankyou'; return false;" class="space-y-3">
+                        <div class="grid grid-cols-2 gap-3">
+                            <input type="text" placeholder="First Name" required class="form-input">
+                            <input type="text" placeholder="Last Name" required class="form-input">
+                        </div>
+                        <input type="email" placeholder="Email" required class="form-input">
+                        <input type="tel" placeholder="Phone Number" required class="form-input">
+                        <button type="submit" class="cta-btn-filled w-full py-4 text-sm mt-2">
+                            BOOK YOUR STRATEGY CALL
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <p class="text-center text-rl-gray text-sm mt-6 italic">Not ready yet? No pressure. Bookmark this page and come back when you are.</p>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 md:py-28">
+        <div class="max-w-[780px] mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-semibold leading-[1.2]">Common Questions</h2>
+            </div>
+
+            <div class="space-y-3">
+                <!-- FAQ 1 -->
+                <div class="border border-rl-border rounded-lg overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left hover:bg-rl-card/50 transition-colors">
+                        <span class="text-sm font-medium pr-4">We're spending $50K+/month on paid media and pipeline is still flat. What are you going to do differently?</span>
+                        <svg class="faq-chevron w-5 h-5 text-rl-gray flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-5 text-rl-gray text-sm leading-[1.7]">
+                            You're probably spending that budget on demand capture, fighting over the 5% of your market that's actively buying right now. That's a crowded, expensive game. We redirect that spend toward demand creation, reaching the 95% who aren't buying yet and building brand preference so you're on their shortlist when they are. Our average client sees 50% qualified pipeline growth in under a year. Not more leads. More pipeline.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="border border-rl-border rounded-lg overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left hover:bg-rl-card/50 transition-colors">
+                        <span class="text-sm font-medium pr-4">At $31K/month, how do I justify this to my CFO when we've already been burned by agencies?</span>
+                        <svg class="faq-chevron w-5 h-5 text-rl-gray flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-5 text-rl-gray text-sm leading-[1.7]">
+                            Fair question. Here's the math. The average agency charges $15-20K/month and reports on clicks and impressions. You've probably already spent $200K+ on that and have nothing to show the board. We tie every dollar to pipeline and revenue. Clari saw a 67% reduction in CAC. Zappi saw a 7x return on pipeline vs. spend. We don't report on activity. We report on revenue. That's a language your CFO speaks.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="border border-rl-border rounded-lg overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left hover:bg-rl-card/50 transition-colors">
+                        <span class="text-sm font-medium pr-4">How do you measure demand creation when half of it happens in channels you can't track?</span>
+                        <svg class="faq-chevron w-5 h-5 text-rl-gray flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-5 text-rl-gray text-sm leading-[1.7]">
+                            This is actually one of our specialties. We use a combination of self-reported attribution ("how did you hear about us"), branded search volume, direct traffic trends, and pipeline source analysis to measure the impact of demand creation. We built our measurement framework across 300+ B2B SaaS companies. You'll know what's working and what isn't, even in the dark funnel.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="border border-rl-border rounded-lg overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left hover:bg-rl-card/50 transition-colors">
+                        <span class="text-sm font-medium pr-4">Our sales team is bought into the MQL model. How do I get internal buy-in?</span>
+                        <svg class="faq-chevron w-5 h-5 text-rl-gray flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-5 text-rl-gray text-sm leading-[1.7]">
+                            We've done this 300+ times. Part of our assessment phase is aligning with your sales leadership on what "good" looks like. We shift the conversation from lead volume to pipeline quality and win rates. When sales sees their close rate jump 64% (like Clari), they stop asking for more MQLs pretty fast.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="border border-rl-border rounded-lg overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left hover:bg-rl-card/50 transition-colors">
+                        <span class="text-sm font-medium pr-4">How long before we see pipeline impact?</span>
+                        <svg class="faq-chevron w-5 h-5 text-rl-gray flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-5 text-rl-gray text-sm leading-[1.7]">
+                            The assessment runs 6-8 weeks. Pipeline changes start becoming visible in months 3-4 as demand creation programs build momentum. By month 6-9, you'll see the full compounding effect. Our average client hits 50% qualified pipeline growth within 12 months. This isn't a quick fix. It's a growth engine.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ 6 -->
+                <div class="border border-rl-border rounded-lg overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left hover:bg-rl-card/50 transition-colors">
+                        <span class="text-sm font-medium pr-4">We already have a marketing team. Are you replacing them?</span>
+                        <svg class="faq-chevron w-5 h-5 text-rl-gray flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-5 text-rl-gray text-sm leading-[1.7]">
+                            No. We work alongside your team. Think of it as adding 60,000+ creative tests, 2,000+ strategies, and data from 300+ SaaS companies to your existing marketing department. Your team gets better because they're plugged into a system that's been refined across 20+ industries.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-rl-border py-16">
+        <div class="max-w-[1180px] mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-10 mb-12">
+                <div>
+                    <img src="images/homepage-67b8b29ba87fc45139026920_logo.svg" alt="Refine Labs" class="h-6 mb-4">
+                    <p class="text-rl-gray text-sm leading-[1.6]">Refine Labs helps mid-market and enterprise B2B SaaS companies build predictable, revenue-grade pipeline using the Brand-Demand-Expand framework.</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#process" class="text-rl-gray text-sm hover:text-rl-teal transition-colors">How It Works</a></li>
+                        <li><a href="#case-studies" class="text-rl-gray text-sm hover:text-rl-teal transition-colors">Case Studies</a></li>
+                        <li><a href="#faq" class="text-rl-gray text-sm hover:text-rl-teal transition-colors">FAQ</a></li>
+                        <li><a href="#hero-form" class="text-rl-gray text-sm hover:text-rl-teal transition-colors">Book a Strategy Call</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Connect</h4>
+                    <ul class="space-y-2">
+                        <li><a href="https://www.linkedin.com/company/refine-labs/" target="_blank" class="text-rl-gray text-sm hover:text-rl-teal transition-colors">LinkedIn</a></li>
+                        <li><a href="https://www.refinelabs.com" target="_blank" class="text-rl-gray text-sm hover:text-rl-teal transition-colors">Website</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-rl-border pt-8">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p class="text-rl-gray text-xs">&copy; 2026 Refine Labs. All rights reserved.</p>
+                    <p class="text-rl-gray text-xs max-w-xl text-center md:text-right">This page is not affiliated with or endorsed by Refine Labs. Results mentioned are from publicly available case studies and may vary based on individual effort, experience, and market conditions.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Nav scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('nav-scrolled');
+            } else {
+                nav.classList.remove('nav-scrolled');
+            }
+        });
+
+        // Hero Form Steps
+        function heroNext(step) {
+            // Hide all hero steps
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById('hero-step-' + i).classList.remove('active');
+            }
+            // Show target step
+            const target = document.getElementById('hero-step-' + step);
+            target.classList.add('active');
+            target.classList.add('fade-slide-in');
+            setTimeout(() => target.classList.remove('fade-slide-in'), 350);
+
+            // Update progress
+            document.getElementById('hero-step-label').textContent = 'Step ' + step + ' of 5';
+            document.getElementById('hero-progress').style.width = (step * 20) + '%';
+        }
+
+        // Bottom Form Steps
+        function bottomNext(step) {
+            // Hide all bottom steps
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById('bottom-step-' + i).classList.remove('active');
+            }
+            // Show target step
+            const target = document.getElementById('bottom-step-' + step);
+            target.classList.add('active');
+            target.classList.add('fade-slide-in');
+            setTimeout(() => target.classList.remove('fade-slide-in'), 350);
+
+            // Update progress
+            document.getElementById('bottom-step-label').textContent = 'Step ' + step + ' of 5';
+            document.getElementById('bottom-progress').style.width = (step * 20) + '%';
+        }
+
+        // FAQ Accordion
+        function toggleFaq(btn) {
+            const answer = btn.nextElementSibling;
+            const chevron = btn.querySelector('.faq-chevron');
+            const isOpen = answer.classList.contains('open');
+
+            // Close all FAQs
+            document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+            document.querySelectorAll('.faq-chevron').forEach(c => c.classList.remove('open'));
+
+            // Toggle current if it was closed
+            if (!isOpen) {
+                answer.classList.add('open');
+                chevron.classList.add('open');
+            }
+        }
+    </script>
+
+</body>
+</html>

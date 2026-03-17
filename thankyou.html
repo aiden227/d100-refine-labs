@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refine Labs | Your Strategy Call Is Confirmed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'rl-bg': '#17171a',
+                        'rl-bg-alt': '#123a30',
+                        'rl-teal': '#3db493',
+                        'rl-bright': '#0ad28f',
+                        'rl-hover': '#154C3C8C',
+                        'rl-gray': '#a0a0a0',
+                        'rl-card': '#1e1e22',
+                        'rl-border': '#2a2a2e',
+                    },
+                    fontFamily: {
+                        'inter-tight': ['"Inter Tight"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter Tight', sans-serif; background: #17171a; color: #ffffff; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Inter Tight', sans-serif; }
+
+        html { scroll-behavior: smooth; }
+
+        /* CTA button */
+        .cta-btn {
+            border: 2px solid #3db493;
+            background: transparent;
+            color: #ffffff;
+            font-family: 'Inter Tight', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.6px;
+            padding: 14px 32px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .cta-btn:hover {
+            opacity: 0.7;
+            background: #000;
+        }
+
+        .cta-btn-filled {
+            border: 2px solid #3db493;
+            background: #3db493;
+            color: #17171a;
+            font-family: 'Inter Tight', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.6px;
+            padding: 14px 32px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .cta-btn-filled:hover {
+            background: #0ad28f;
+            border-color: #0ad28f;
+        }
+
+        /* Gradient orb */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        /* Nav */
+        .nav-scrolled {
+            background: rgba(23, 23, 26, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(42, 42, 46, 0.5);
+        }
+
+        /* Checkmark animation */
+        @keyframes checkPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+        .check-pulse {
+            animation: checkPulse 2s ease-in-out infinite;
+        }
+
+        /* Fade in animation */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up {
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards;
+        }
+        .fade-up-d1 { animation-delay: 0.1s; }
+        .fade-up-d2 { animation-delay: 0.2s; }
+        .fade-up-d3 { animation-delay: 0.3s; }
+        .fade-up-d4 { animation-delay: 0.4s; }
+        .fade-up-d5 { animation-delay: 0.5s; }
+        .fade-up-d6 { animation-delay: 0.6s; }
+
+        /* Section divider */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #2a2a2e, transparent);
+        }
+
+        /* Video card play button */
+        .play-btn {
+            transition: all 0.2s ease;
+        }
+        .play-btn:hover {
+            transform: scale(1.1);
+            background: rgba(61, 180, 147, 0.3);
+        }
+
+        /* Stat highlight */
+        .stat-highlight {
+            color: #3db493;
+            font-weight: 700;
+        }
+
+        section[id] {
+            scroll-margin-top: 80px;
+        }
+    </style>
+</head>
+<body class="bg-rl-bg text-white font-inter-tight">
+
+    <!-- Navigation -->
+    <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 nav-scrolled">
+        <div class="max-w-[1180px] mx-auto px-6 py-5 flex items-center justify-between">
+            <a href="/">
+                <img src="images/homepage-67b8b29ba87fc45139026920_logo.svg" alt="Refine Labs" class="h-6 md:h-7">
+            </a>
+            <div class="flex items-center gap-4">
+                <span class="inline-flex items-center gap-2 bg-rl-teal/15 border border-rl-teal/30 text-rl-teal text-xs font-semibold px-4 py-2 rounded-full">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    Application Received
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Confirmation Hero -->
+    <section class="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
+        <div class="orb w-[600px] h-[600px] bg-rl-teal top-[-200px] left-[-200px]"></div>
+        <div class="orb w-[400px] h-[400px] bg-rl-bright top-[100px] right-[-150px]"></div>
+
+        <div class="relative z-10 max-w-[780px] mx-auto px-6 text-center">
+            <!-- Animated checkmark -->
+            <div class="check-pulse inline-flex items-center justify-center w-20 h-20 rounded-full border-2 border-rl-teal mb-8 fade-up">
+                <svg class="w-10 h-10 text-rl-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                </svg>
+            </div>
+
+            <h1 class="text-4xl md:text-5xl lg:text-[52px] font-bold leading-[1.1] mb-5 fade-up fade-up-d1">
+                Your Strategy Call Is <span class="text-rl-teal">Confirmed.</span>
+            </h1>
+
+            <p class="text-rl-gray text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-10 fade-up fade-up-d2">
+                Watch the video below, then complete your prep form so we can make the most of our 45 minutes together.
+            </p>
+
+            <!-- Hero Video Placeholder -->
+            <div class="max-w-3xl mx-auto mb-10 fade-up fade-up-d3">
+                <div class="relative bg-rl-card rounded-lg aspect-video flex items-center justify-center border border-rl-border overflow-hidden">
+                    <img src="images/homepage-67b8b29ba87fc45139026926_graph.png" alt="" class="absolute inset-0 w-full h-full object-cover opacity-15">
+                    <div class="relative text-center z-10">
+                        <div class="w-20 h-20 rounded-full border-2 border-rl-teal flex items-center justify-center mx-auto mb-3 cursor-pointer play-btn">
+                            <svg class="w-8 h-8 text-rl-teal ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                        <p class="text-rl-gray text-sm">Why B2B SaaS Companies That Wait Another Quarter Are Losing Ground</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="fade-up fade-up-d4 mb-6">
+                <a href="#" class="cta-btn-filled">COMPLETE YOUR PREP FORM (5 MINUTES)</a>
+            </div>
+            <p class="text-rl-gray text-sm italic fade-up fade-up-d5">Not the right time? <a href="#" class="text-rl-teal hover:underline">Reschedule here.</a></p>
+        </div>
+    </section>
+
+    <!-- Micro-Proof Bar -->
+    <section class="py-8 border-y border-rl-border">
+        <div class="max-w-[1180px] mx-auto px-6">
+            <div class="flex flex-wrap items-center justify-center gap-6 md:gap-10 text-center text-sm">
+                <span class="text-rl-gray"><span class="text-white font-semibold">300+</span> B2B SaaS Clients</span>
+                <span class="text-rl-border">|</span>
+                <span class="text-rl-gray"><span class="text-white font-semibold">60,000+</span> Creative Assets Tested</span>
+                <span class="text-rl-border hidden md:inline">|</span>
+                <span class="text-rl-gray"><span class="text-white font-semibold">50%</span> Avg. Qualified Pipeline Growth</span>
+                <span class="text-rl-border hidden md:inline">|</span>
+                <span class="text-rl-gray">Vena, Clari, Splash, Zappi, BeyondTrust</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- What Happens Next (Timeline) -->
+    <section class="py-20 md:py-28">
+        <div class="max-w-[780px] mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-semibold leading-[1.2] mb-12 text-center">What Happens Between Now and Your Call</h2>
+
+            <div class="space-y-0">
+                <!-- Step 1 -->
+                <div class="flex gap-5">
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full border-2 border-rl-teal flex items-center justify-center flex-shrink-0 bg-rl-teal/10">
+                            <span class="text-rl-teal font-bold text-sm">1</span>
+                        </div>
+                        <div class="w-px flex-1 bg-rl-border"></div>
+                    </div>
+                    <div class="pb-10">
+                        <p class="text-xs text-rl-teal font-semibold tracking-wider uppercase mb-1">Right Now</p>
+                        <p class="text-white text-sm font-medium mb-1">Complete Your Prep Form</p>
+                        <p class="text-rl-gray text-sm">Click the button above to fill it out. Takes 5 minutes.</p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="flex gap-5">
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full border-2 border-rl-border flex items-center justify-center flex-shrink-0">
+                            <span class="text-rl-gray font-bold text-sm">2</span>
+                        </div>
+                        <div class="w-px flex-1 bg-rl-border"></div>
+                    </div>
+                    <div class="pb-10">
+                        <p class="text-xs text-rl-gray font-semibold tracking-wider uppercase mb-1">In 5 Minutes</p>
+                        <p class="text-white text-sm font-medium mb-1">Confirmation Email</p>
+                        <p class="text-rl-gray text-sm">Your Zoom link and calendar invite arrive in your inbox.</p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="flex gap-5">
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full border-2 border-rl-border flex items-center justify-center flex-shrink-0">
+                            <span class="text-rl-gray font-bold text-sm">3</span>
+                        </div>
+                        <div class="w-px flex-1 bg-rl-border"></div>
+                    </div>
+                    <div class="pb-10">
+                        <p class="text-xs text-rl-gray font-semibold tracking-wider uppercase mb-1">Over the Next 2 Days</p>
+                        <p class="text-white text-sm font-medium mb-1">Pre-Call Research Packet</p>
+                        <p class="text-rl-gray text-sm">Case studies, pipeline benchmarks, and data from companies in your space.</p>
+                    </div>
+                </div>
+                <!-- Step 4 -->
+                <div class="flex gap-5">
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full border-2 border-rl-border flex items-center justify-center flex-shrink-0">
+                            <span class="text-rl-gray font-bold text-sm">4</span>
+                        </div>
+                        <div class="w-px flex-1 bg-rl-border"></div>
+                    </div>
+                    <div class="pb-10">
+                        <p class="text-xs text-rl-gray font-semibold tracking-wider uppercase mb-1">24 Hours Before</p>
+                        <p class="text-white text-sm font-medium mb-1">SMS Reminder</p>
+                        <p class="text-rl-gray text-sm">Text reminder with dial-in details.</p>
+                    </div>
+                </div>
+                <!-- Step 5 -->
+                <div class="flex gap-5">
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full border-2 border-rl-border flex items-center justify-center flex-shrink-0">
+                            <span class="text-rl-gray font-bold text-sm">5</span>
+                        </div>
+                        <div class="w-px flex-1 bg-rl-border"></div>
+                    </div>
+                    <div class="pb-10">
+                        <p class="text-xs text-rl-gray font-semibold tracking-wider uppercase mb-1">1 Hour Before</p>
+                        <p class="text-white text-sm font-medium mb-1">Final Reminder</p>
+                        <p class="text-rl-gray text-sm">Last email reminder so you don't miss it.</p>
+                    </div>
+                </div>
+                <!-- Step 6 -->
+                <div class="flex gap-5">
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full border-2 border-rl-teal flex items-center justify-center flex-shrink-0 bg-rl-teal/10">
+                            <svg class="w-5 h-5 text-rl-teal" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-xs text-rl-teal font-semibold tracking-wider uppercase mb-1">Call Time</p>
+                        <p class="text-white text-sm font-medium">45-Minute Strategy Session</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Breakout Videos Section -->
+    <section id="breakout-videos" class="py-20 md:py-28">
+        <div class="max-w-[1180px] mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-semibold leading-[1.2] mb-4">Watch These Before Your Call</h2>
+                <p class="text-rl-gray text-base">60-90 seconds each. They'll make our conversation 10x more productive.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Video 1 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg overflow-hidden group">
+                    <div class="relative aspect-video bg-rl-bg flex items-center justify-center">
+                        <img src="images/megan-bowen-headshot.png" alt="Megan Bowen" class="absolute inset-0 w-full h-full object-cover opacity-20">
+                        <div class="relative z-10 w-14 h-14 rounded-full border-2 border-rl-teal flex items-center justify-center play-btn cursor-pointer">
+                            <svg class="w-6 h-6 text-rl-teal ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="inline-block text-xs font-semibold text-rl-teal tracking-wider uppercase mb-2">Getting Started</span>
+                        <h3 class="text-base font-semibold mb-2">Here's What Happens Next</h3>
+                        <p class="text-rl-gray text-sm leading-[1.6]">Exactly what to expect between now and our conversation, step by step.</p>
+                        <a href="#" class="inline-block mt-3 text-rl-teal text-sm font-semibold hover:underline">Watch Now &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg overflow-hidden group">
+                    <div class="relative aspect-video bg-rl-bg flex items-center justify-center">
+                        <img src="images/homepage-67b8b29ba87fc45139026922_puzzle.png" alt="" class="absolute inset-0 w-full h-full object-contain opacity-15 p-8">
+                        <div class="relative z-10 w-14 h-14 rounded-full border-2 border-rl-teal flex items-center justify-center play-btn cursor-pointer">
+                            <svg class="w-6 h-6 text-rl-teal ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="inline-block text-xs font-semibold text-rl-teal tracking-wider uppercase mb-2">Qualification</span>
+                        <h3 class="text-base font-semibold mb-2">Is This the Right Fit?</h3>
+                        <p class="text-rl-gray text-sm leading-[1.6]">Who this call is designed for, and who should probably reschedule.</p>
+                        <a href="#" class="inline-block mt-3 text-rl-teal text-sm font-semibold hover:underline">Watch Now &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Video 3 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg overflow-hidden group">
+                    <div class="relative aspect-video bg-rl-bg flex items-center justify-center">
+                        <img src="images/homepage-67b8b29ba87fc45139026926_graph.png" alt="" class="absolute inset-0 w-full h-full object-cover opacity-15">
+                        <div class="relative z-10 w-14 h-14 rounded-full border-2 border-rl-teal flex items-center justify-center play-btn cursor-pointer">
+                            <svg class="w-6 h-6 text-rl-teal ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="inline-block text-xs font-semibold text-rl-teal tracking-wider uppercase mb-2">The System</span>
+                        <h3 class="text-base font-semibold mb-2">Brand-Demand-Expand in 90 Seconds</h3>
+                        <p class="text-rl-gray text-sm leading-[1.6]">How we build your pipeline engine in three steps, with real client numbers.</p>
+                        <a href="#" class="inline-block mt-3 text-rl-teal text-sm font-semibold hover:underline">Watch Now &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Video 4 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg overflow-hidden group">
+                    <div class="relative aspect-video bg-rl-bg flex items-center justify-center">
+                        <img src="images/team-screenshot.png" alt="" class="absolute inset-0 w-full h-full object-cover opacity-15">
+                        <div class="relative z-10 w-14 h-14 rounded-full border-2 border-rl-teal flex items-center justify-center play-btn cursor-pointer">
+                            <svg class="w-6 h-6 text-rl-teal ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="inline-block text-xs font-semibold text-rl-teal tracking-wider uppercase mb-2">Objection Buster</span>
+                        <h3 class="text-base font-semibold mb-2">"We've Been Burned by Agencies Before"</h3>
+                        <p class="text-rl-gray text-sm leading-[1.6]">Why this is different from the agency that reported on impressions while your pipeline stayed flat.</p>
+                        <a href="#" class="inline-block mt-3 text-rl-teal text-sm font-semibold hover:underline">Watch Now &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Video 5 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg overflow-hidden group">
+                    <div class="relative aspect-video bg-rl-bg flex items-center justify-center">
+                        <img src="images/homepage-67b8b29ba87fc45139026923_Frame%2021864%202.png" alt="" class="absolute inset-0 w-full h-full object-contain opacity-20 p-8">
+                        <div class="relative z-10 w-14 h-14 rounded-full border-2 border-rl-teal flex items-center justify-center play-btn cursor-pointer">
+                            <svg class="w-6 h-6 text-rl-teal ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="inline-block text-xs font-semibold text-rl-teal tracking-wider uppercase mb-2">Investment</span>
+                        <h3 class="text-base font-semibold mb-2">The $20-31K/Month Question</h3>
+                        <p class="text-rl-gray text-sm leading-[1.6]">The math behind the investment vs. hiring in-house, and what you're actually getting.</p>
+                        <a href="#" class="inline-block mt-3 text-rl-teal text-sm font-semibold hover:underline">Watch Now &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Video 6 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg overflow-hidden group">
+                    <div class="relative aspect-video bg-rl-bg flex items-center justify-center">
+                        <img src="images/megan-bio-68629b0b6e53dfa8adf9cc3d_Megan_1.png" alt="Megan Bowen" class="absolute inset-0 w-full h-full object-cover opacity-20">
+                        <div class="relative z-10 w-14 h-14 rounded-full border-2 border-rl-teal flex items-center justify-center play-btn cursor-pointer">
+                            <svg class="w-6 h-6 text-rl-teal ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="inline-block text-xs font-semibold text-rl-teal tracking-wider uppercase mb-2">Preparation</span>
+                        <h3 class="text-base font-semibold mb-2">How to Prep for Your Call</h3>
+                        <p class="text-rl-gray text-sm leading-[1.6]">Three things to bring so this call is a real strategy session, not a sales pitch.</p>
+                        <a href="#" class="inline-block mt-3 text-rl-teal text-sm font-semibold hover:underline">Watch Now &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Testimonials Gallery -->
+    <section class="py-20 md:py-28 bg-rl-bg-alt">
+        <div class="max-w-[1180px] mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-semibold leading-[1.2] mb-4">What 300+ B2B SaaS Marketing Leaders Experienced</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Result Card 1 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-6">
+                    <img src="images/homepage-67bce93078453c869a0cb9dc_Logo-Vena.png" alt="Vena" class="h-5 mb-4 opacity-60">
+                    <p class="text-2xl font-bold text-rl-teal mb-1">745%</p>
+                    <p class="text-sm text-white font-medium mb-2">Pipeline Velocity Boost</p>
+                    <p class="text-rl-gray text-xs">CMO Allison Munro, 3-year partnership</p>
+                </div>
+                <!-- Result Card 2 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-6">
+                    <p class="text-white font-semibold text-sm mb-4 opacity-60">Clari</p>
+                    <p class="text-2xl font-bold text-rl-teal mb-1">64%</p>
+                    <p class="text-sm text-white font-medium mb-2">Win Rate Increase</p>
+                    <p class="text-rl-gray text-xs">67% reduction in acquisition cost</p>
+                </div>
+                <!-- Result Card 3 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-6">
+                    <p class="text-white font-semibold text-sm mb-4 opacity-60">Splash</p>
+                    <p class="text-2xl font-bold text-rl-teal mb-1">80%</p>
+                    <p class="text-sm text-white font-medium mb-2">Qualified Pipeline Growth</p>
+                    <p class="text-rl-gray text-xs">CMO Kate Hammitt, 32% lower cost per opp</p>
+                </div>
+                <!-- Result Card 4 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-6">
+                    <img src="images/homepage-67bce92fb9bd3577aefcd6eb_Logo-Zappi.png" alt="Zappi" class="h-5 mb-4 opacity-60">
+                    <p class="text-2xl font-bold text-rl-teal mb-1">7x</p>
+                    <p class="text-sm text-white font-medium mb-2">Pipeline vs. Spend</p>
+                    <p class="text-rl-gray text-xs">3x increase in deal size</p>
+                </div>
+                <!-- Result Card 5 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-6">
+                    <p class="text-white font-semibold text-sm mb-4 opacity-60">dotCMS</p>
+                    <p class="text-2xl font-bold text-rl-teal mb-1">2x</p>
+                    <p class="text-sm text-white font-medium mb-2">Inbound Demo Requests</p>
+                    <p class="text-rl-gray text-xs">Victoria Burt: "Never seen such high-quality leads"</p>
+                </div>
+                <!-- Result Card 6 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-6">
+                    <p class="text-white font-semibold text-sm mb-4 opacity-60">Bonterra</p>
+                    <p class="text-2xl font-bold text-rl-teal mb-1">30%</p>
+                    <p class="text-sm text-white font-medium mb-2">High-Intent Leads QoQ</p>
+                    <p class="text-rl-gray text-xs">"Reversed the decline and rebuilt demand"</p>
+                </div>
+                <!-- Result Card 7 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-6">
+                    <p class="text-white font-semibold text-sm mb-4 opacity-60">Loxo</p>
+                    <p class="text-2xl font-bold text-rl-teal mb-1">45%</p>
+                    <p class="text-sm text-white font-medium mb-2">ARR Growth</p>
+                    <p class="text-rl-gray text-xs">Pipeline compounding after Brand-Demand-Expand</p>
+                </div>
+                <!-- Result Card 8 -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-6">
+                    <img src="images/homepage-67c7ea84f335a66e2b1f53cb_firstup.png" alt="FirstUp" class="h-5 mb-4 opacity-60">
+                    <p class="text-2xl font-bold text-rl-teal mb-1">59%</p>
+                    <p class="text-sm text-white font-medium mb-2">HIRO Pipeline Growth</p>
+                    <p class="text-rl-gray text-xs">46% increase in hand raisers</p>
+                </div>
+            </div>
+
+            <p class="text-center text-rl-gray text-xs mt-8 italic">Results vary based on individual effort, experience, and market conditions.</p>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Who This Is and Is Not For -->
+    <section class="py-20 md:py-28">
+        <div class="max-w-[900px] mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-semibold leading-[1.2] mb-12 text-center">Who This Call Is and Is Not For</h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- This call IS for you -->
+                <div class="bg-rl-card border border-rl-teal/30 rounded-lg p-7">
+                    <div class="flex items-center gap-2 mb-5">
+                        <svg class="w-5 h-5 text-rl-teal" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                        <h3 class="text-lg font-semibold text-rl-teal">This call is for you if:</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3 text-sm text-rl-gray leading-[1.6]">
+                            <span class="text-rl-teal mt-0.5 flex-shrink-0">&#10003;</span>
+                            You run marketing at a B2B SaaS company doing $30M+ ARR (sweet spot: $50M+)
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-rl-gray leading-[1.6]">
+                            <span class="text-rl-teal mt-0.5 flex-shrink-0">&#10003;</span>
+                            Your average deal size is $25K+ ACV and you have a $50K+/month paid media budget
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-rl-gray leading-[1.6]">
+                            <span class="text-rl-teal mt-0.5 flex-shrink-0">&#10003;</span>
+                            You're generating MQLs but pipeline isn't growing, and sales doesn't trust the leads marketing sends over
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-rl-gray leading-[1.6]">
+                            <span class="text-rl-teal mt-0.5 flex-shrink-0">&#10003;</span>
+                            You're ready to invest $20K-$31K/month in a demand gen partner within the next 30-60 days
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-rl-gray leading-[1.6]">
+                            <span class="text-rl-teal mt-0.5 flex-shrink-0">&#10003;</span>
+                            You (or your VP/CMO/CRO) can make the decision to move forward on the call
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- This call is NOT for you -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-7">
+                    <div class="flex items-center gap-2 mb-5">
+                        <svg class="w-5 h-5 text-red-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                        <h3 class="text-lg font-semibold text-red-400">This call is not for you if:</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3 text-sm text-rl-gray leading-[1.6]">
+                            <span class="text-red-400 mt-0.5 flex-shrink-0">&#10005;</span>
+                            You're under $30M ARR or your ACV is below $25K (the system requires a minimum scale to deliver ROI)
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-rl-gray leading-[1.6]">
+                            <span class="text-red-400 mt-0.5 flex-shrink-0">&#10005;</span>
+                            You're looking for someone to run a few LinkedIn ads or manage a single campaign
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-rl-gray leading-[1.6]">
+                            <span class="text-red-400 mt-0.5 flex-shrink-0">&#10005;</span>
+                            You don't have a dedicated sales team to follow up on qualified pipeline
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-rl-gray leading-[1.6]">
+                            <span class="text-red-400 mt-0.5 flex-shrink-0">&#10005;</span>
+                            You expect qualified pipeline growth in 30 days from a standing start (realistic timeline is 90-180 days)
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-rl-gray leading-[1.6]">
+                            <span class="text-red-400 mt-0.5 flex-shrink-0">&#10005;</span>
+                            The decision-maker can't join the call
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <p class="text-center text-rl-gray text-sm mt-8 italic">If any of the "not for you" criteria apply, please reschedule. This call won't be the right fit, and we'd rather save both of our time. <a href="#" class="text-rl-teal hover:underline">Reschedule here.</a></p>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- How Brand-Demand-Expand Works -->
+    <section class="py-20 md:py-28">
+        <div class="max-w-[1180px] mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-semibold leading-[1.2] mb-4">How We Build Your Pipeline Engine</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-10">
+                <!-- Brand -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-7">
+                    <div class="w-10 h-10 rounded-full border-2 border-rl-teal flex items-center justify-center mb-5">
+                        <span class="text-rl-teal font-bold text-sm">1</span>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-3">Brand</h3>
+                    <p class="text-rl-gray text-sm leading-[1.6]">We make your company the first name that comes to mind when your ICP enters a buying cycle. Branded search volume, direct traffic, social engagement. Clients see 2-3x increases in branded search within 6 months.</p>
+                </div>
+                <!-- Demand -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-7">
+                    <div class="w-10 h-10 rounded-full border-2 border-rl-teal flex items-center justify-center mb-5">
+                        <span class="text-rl-teal font-bold text-sm">2</span>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-3">Demand</h3>
+                    <p class="text-rl-gray text-sm leading-[1.6]">Targeted campaigns across LinkedIn, Google, YouTube, CTV, and Reddit. Create demand with the 95% not actively buying, capture demand from the 5% who are. Splash saw 80% more pipeline and 32% lower cost per opportunity.</p>
+                </div>
+                <!-- Expand -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-7">
+                    <div class="w-10 h-10 rounded-full border-2 border-rl-teal flex items-center justify-center mb-5">
+                        <span class="text-rl-teal font-bold text-sm">3</span>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-3">Expand</h3>
+                    <p class="text-rl-gray text-sm leading-[1.6]">Digital programs driving upsell and expansion revenue from existing customers. Most SaaS companies leave this on the table entirely. Clients see measurable NRR improvement within 90 days.</p>
+                </div>
+            </div>
+
+            <!-- Mini proof -->
+            <div class="bg-rl-card border border-rl-border rounded-lg p-7 max-w-3xl mx-auto">
+                <p class="text-rl-gray text-sm leading-[1.7]">Vena was running a traditional lead gen playbook when they started. After implementing Brand-Demand-Expand, they saw a <span class="stat-highlight">745% boost in pipeline velocity</span> over a 3-year partnership. Same market. Same product. Different system.</p>
+                <p class="text-rl-gray text-xs mt-3 italic">Results vary based on individual effort, experience, and market conditions.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Before the Call (Logistics) -->
+    <section class="py-20 md:py-28">
+        <div class="max-w-[900px] mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-semibold leading-[1.2] mb-12 text-center">Before the Call</h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- What to bring -->
+                <div class="bg-rl-card border border-rl-border rounded-lg p-7">
+                    <div class="flex items-center gap-3 mb-5">
+                        <img src="images/megan-bowen-headshot.png" alt="Megan Bowen" class="w-10 h-10 rounded-full object-cover">
+                        <div>
+                            <h3 class="text-base font-semibold">What to Bring</h3>
+                            <p class="text-rl-gray text-xs">Have these ready for your session</p>
+                        </div>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3 text-sm text-rl-gray leading-[1.6]">
+                            <span class="text-rl-teal mt-0.5 flex-shrink-0">&#8250;</span>
+                            Your current ARR and pipeline numbers for the past 3-6 months
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-rl-gray leading-[1.6]">
+                            <span class="text-rl-teal mt-0.5 flex-shrink-0">&#8250;</span>
+                            Your monthly paid media spend and which channels you're running
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-rl-gray leading-[1.6]">
+                            <span class="text-rl-teal mt-0.5 flex-shrink-0">&#8250;</span>
+                            Your current marketing stack (CRM, attribution tools, ad platforms)
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-rl-gray leading-[1.6]">
+                            <span class="text-rl-teal mt-0.5 flex-shrink-0">&#8250;</span>
+                            Your biggest marketing challenge in one sentence
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Who must attend + Technical -->
+                <div class="space-y-6">
+                    <div class="bg-rl-card border border-rl-border rounded-lg p-7">
+                        <h3 class="text-base font-semibold mb-3">Who Must Attend</h3>
+                        <p class="text-rl-gray text-sm leading-[1.6]">This call requires the VP of Marketing, CMO, or whoever has final say on a demand gen investment. If that's not you, add them to the calendar invite now. We need the decision-maker on the call to move forward.</p>
+                    </div>
+                    <div class="bg-rl-card border border-rl-border rounded-lg p-7">
+                        <h3 class="text-base font-semibold mb-3">Technical Requirements</h3>
+                        <ul class="space-y-2 text-rl-gray text-sm leading-[1.6]">
+                            <li>Zoom with screen-share capability</li>
+                            <li>Quiet environment, stable internet</li>
+                        </ul>
+                    </div>
+                    <div class="bg-rl-card border border-rl-border rounded-lg p-7">
+                        <h3 class="text-base font-semibold mb-3">Reschedule Policy</h3>
+                        <p class="text-rl-gray text-sm leading-[1.6]">Need to move the call? Use the reschedule link at least 24 hours in advance. Calls that start more than 10 minutes late will be rescheduled automatically.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Common Questions -->
+    <section class="py-20 md:py-28">
+        <div class="max-w-[780px] mx-auto px-6">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-semibold leading-[1.2]">Common Questions</h2>
+            </div>
+
+            <div class="space-y-3">
+                <div class="border border-rl-border rounded-lg overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left hover:bg-rl-card/50 transition-colors">
+                        <span class="text-sm font-medium pr-4">"We've hired agencies before and it didn't work."</span>
+                        <svg class="faq-chevron w-5 h-5 text-rl-gray flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-5 text-rl-gray text-sm leading-[1.7]">
+                            That's the most common thing we hear. Here's the difference. Most agencies hand you MQL reports and make you prove the revenue impact yourself. We build the measurement infrastructure connecting campaigns to pipeline to revenue. We've done this for 300+ B2B SaaS companies. Average result: 50% qualified pipeline growth in under a year. Clari saw a 64% increase in win rate and a 67% reduction in acquisition cost.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-rl-border rounded-lg overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left hover:bg-rl-card/50 transition-colors">
+                        <span class="text-sm font-medium pr-4">"$20-31K/month is a lot of money."</span>
+                        <svg class="faq-chevron w-5 h-5 text-rl-gray flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-5 text-rl-gray text-sm leading-[1.7]">
+                            It is. But here's the math. A VP of Demand Gen costs $200K+ a year. Add a content lead, paid media specialist, designer, and analytics person and you're at $500K+ in salary alone, no system, no benchmarks from 300+ SaaS companies, no creative library of 60,000+ tested assets. For $31K/month you get all of that, plus a team that's already made the mistakes and knows what works.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-rl-border rounded-lg overflow-hidden">
+                    <button onclick="toggleFaq(this)" class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left hover:bg-rl-card/50 transition-colors">
+                        <span class="text-sm font-medium pr-4">"How do I measure demand creation when it happens in channels we can't track?"</span>
+                        <svg class="faq-chevron w-5 h-5 text-rl-gray flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="px-6 pb-5 text-rl-gray text-sm leading-[1.7]">
+                            This is the biggest misconception. You CAN measure it. We use self-reported attribution alongside traditional multi-touch models. We build a measurement framework in the first 60 days that shows exactly how brand and demand programs connect to pipeline. Splash's CMO Kate Hammitt called it "the best opportunity generation Splash has experienced." That's not a guess. That's data.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="py-20 md:py-28 relative overflow-hidden">
+        <div class="orb w-[500px] h-[500px] bg-rl-teal bottom-[-200px] left-[-200px]"></div>
+        <div class="relative z-10 text-center max-w-[600px] mx-auto px-6">
+            <a href="#" class="cta-btn-filled text-sm">COMPLETE YOUR PREP FORM</a>
+            <p class="text-rl-gray text-sm mt-6 italic">Your call is confirmed. Complete your prep and we'll see you there.</p>
+            <p class="text-rl-gray text-sm mt-3">Not the right time? <a href="#" class="text-rl-teal hover:underline">Reschedule here.</a></p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-rl-border py-16">
+        <div class="max-w-[1180px] mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-10 mb-12">
+                <div>
+                    <img src="images/homepage-67b8b29ba87fc45139026920_logo.svg" alt="Refine Labs" class="h-6 mb-4">
+                    <p class="text-rl-gray text-sm leading-[1.6]">Refine Labs helps mid-market and enterprise B2B SaaS companies build predictable, revenue-grade pipeline using the Brand-Demand-Expand framework.</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="text-rl-gray text-sm hover:text-rl-teal transition-colors">Back to Main Page</a></li>
+                        <li><a href="#breakout-videos" class="text-rl-gray text-sm hover:text-rl-teal transition-colors">Breakout Videos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">Connect</h4>
+                    <ul class="space-y-2">
+                        <li><a href="https://www.linkedin.com/company/refine-labs/" target="_blank" class="text-rl-gray text-sm hover:text-rl-teal transition-colors">LinkedIn</a></li>
+                        <li><a href="https://www.refinelabs.com" target="_blank" class="text-rl-gray text-sm hover:text-rl-teal transition-colors">Website</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-rl-border pt-8">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p class="text-rl-gray text-xs">&copy; 2026 Refine Labs. All rights reserved.</p>
+                    <p class="text-rl-gray text-xs max-w-xl text-center md:text-right">This page is not affiliated with or endorsed by Refine Labs. Results mentioned are from publicly available case studies and may vary based on individual effort, experience, and market conditions.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Nav scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('nav-scrolled');
+            } else {
+                nav.classList.remove('nav-scrolled');
+            }
+        });
+
+        // FAQ Accordion
+        function toggleFaq(btn) {
+            const answer = btn.nextElementSibling;
+            const chevron = btn.querySelector('.faq-chevron');
+            const isOpen = answer.classList.contains('open');
+
+            document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+            document.querySelectorAll('.faq-chevron').forEach(c => c.classList.remove('open'));
+
+            if (!isOpen) {
+                answer.classList.add('open');
+                chevron.classList.add('open');
+            }
+        }
+    </script>
+
+</body>
+</html>
